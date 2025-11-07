@@ -6,5 +6,6 @@ socket.on('connect', (res) => {
 });
 
 socket.on('message', (data) => {
-    console.log('Message from server:', data);
+    console.log("Message from server:", data);
+    socket.emit("message", "Hello! This is Khin!");
 });
