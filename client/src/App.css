@@ -28,6 +28,10 @@
   margin: 0.6rem;
 }
 
+.send-scores {
+  margin-top: 1rem;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);

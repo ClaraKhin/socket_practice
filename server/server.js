@@ -2,15 +2,16 @@ const { createServer } = require('http');
 const { Server } = require('socket.io');
 
 const httpServer = createServer();
-const socket = new Server(httpServer, { cors: { origin: "*" } });
+const io = new Server(httpServer, { cors: { origin: "http://localhost:5173" } });
 
-socket.on('connection', (socket) => {
-
-    socket.on("message", (data) => {
-        console.log("Message from client:", data);
+let playerScores = [];
+io.on('connection', (socket) => {
+    socket.on('scores', (scores) => {
+        playerScores.push(scores);
+        console.log(playerScores);
     });
-    socket.emit("message", "Hello from server!");
 });
+
 
 
 httpServer.listen(3000, () => {
