@@ -21,6 +21,9 @@ function App() {
 
   const sendScores = () => {
     socket.emit("scores", scores);
+    socket.on("playerScores", (playerScores) => {
+      console.log(playerScores);
+    });
   };
 
   useEffect(() => {
