@@ -6,6 +6,7 @@ import "./App.css";
 
 function App() {
   const [scores, setScores] = useState({});
+  const [pScores, setPScores] = useState([]);
   const socket = io("http://localhost:3000");
   function connectSocket() {
     socket.on("connect", () => {
@@ -22,7 +23,7 @@ function App() {
   const sendScores = () => {
     socket.emit("scores", scores);
     socket.on("playerScores", (playerScores) => {
-      console.log(playerScores);
+      setPScores(playerScores);
     });
   };
 
@@ -46,6 +47,24 @@ function App() {
       <button className="send-scores" onClick={sendScores}>
         Publish Score
       </button>
+      {pScores.length > 0 ? (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pScores.map((pScore) => (
+              <tr key={pScore?.id}>
+                <td>{pScore?.name}</td>
+                <td>{pScore?.score}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : <></>}
     </div>
   );
 }

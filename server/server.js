@@ -8,8 +8,11 @@ let playerScores = [];
 io.on('connection', (socket) => {
     socket.on('scores', (scores) => {
         playerScores.push({ ...scores, id: socket.id });
-        console.log(playerScores);
         socket.emit('playerScores', playerScores);
+
+        setInterval(() => {
+            socket.emit("playerScores", playerScores);
+        }, 5000);
 
     });
 });
